@@ -1,0 +1,25 @@
+name: Dummy production deployment
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm install --package-lock-only --ignore-scripts
+      - name: Simulate production deployment
+        run: |
+          echo "Deploying ${GITHUB_SHA} to Production"
+          echo "Dummy production deployment succeeded"
